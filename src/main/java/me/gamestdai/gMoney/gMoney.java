@@ -51,10 +51,6 @@ public class gMoney extends JavaPlugin {
         
         adicionarPadroes(this.config, msg);
 
-        if (config.getBoolean("AutoUpdate") == true) {
-            Updater updater = new Updater(this, 95029, getFile(), Updater.UpdateType.DEFAULT, true);
-        }
-
         cmdmoney = new CmdMoney();
 
         PluginCommand pcmd = getCommand("gmoney");
@@ -144,7 +140,6 @@ public class gMoney extends JavaPlugin {
         config.adicionarDefault("UsingVault", Boolean.valueOf(true));
         config.adicionarDefault("CommandsCooldown", false);
         config.adicionarDefault("CooldownTime", 3);
-        config.adicionarDefault("AutoUpdate", Boolean.valueOf(true));
         config.adicionarDefault("CommandAliasesUseNMS", false);
         ArrayList<String> lista = new ArrayList<String>();
         lista.add("money");
