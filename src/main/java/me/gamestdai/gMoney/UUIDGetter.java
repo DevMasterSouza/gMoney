@@ -1,9 +1,10 @@
 package me.gamestdai.gMoney;
 
-import java.lang.reflect.Method;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+
+import java.lang.reflect.Method;
+import java.util.UUID;
 
 /**
  *

@@ -1,7 +1,7 @@
 name: gMoney
-version: 1.9.2
+version: ${project.version}
 main: me.gamestdai.gMoney.gMoney
-author: GamesTdai
+authors: [GamesTdai, DevMasterSouza]
 load: STARTUP
 softdepend: [Vault]
 

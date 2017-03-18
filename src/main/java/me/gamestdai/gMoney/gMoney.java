@@ -1,18 +1,11 @@
 package me.gamestdai.gMoney;
 
-import ch.njol.skript.Skript;
-import java.io.File;
-import java.lang.reflect.Field;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import me.gamestdai.gMoney.Comandos.CmdMoney;
 import me.gamestdai.gMoney.Interfaces.Economia;
 import me.gamestdai.gMoney.Objetos.Config;
 import me.gamestdai.gMoney.Objetos.ConfigEconomia;
 import me.gamestdai.gMoney.Objetos.MySQL;
 import me.gamestdai.gMoney.Objetos.MySQLEconomia;
-import me.gamestdai.gMoney.Skript.Effects.EffGiveMoney;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,6 +15,12 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class gMoney extends JavaPlugin {
 
@@ -100,7 +99,7 @@ public class gMoney extends JavaPlugin {
         }
         if (config.getBoolean("UsingVault")) {
             if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
-                Bukkit.getServer().getServicesManager().register(Economy.class, new VaultConexão(), gMoney.getInstance(), ServicePriority.Highest);
+                Bukkit.getServer().getServicesManager().register(Economy.class, new VaultConexao(), gMoney.getInstance(), ServicePriority.Highest);
             }
         }
         
@@ -152,7 +151,7 @@ public class gMoney extends JavaPlugin {
         config.adicionarDefault("CooldownTime", 3);
         config.adicionarDefault("AutoUpdate", Boolean.valueOf(true));
         config.adicionarDefault("CommandAliasesUseNMS", false);
-        ArrayList<String> lista = new ArrayList<>();
+        ArrayList<String> lista = new ArrayList<String>();
         lista.add("money");
         lista.add("eco");
         lista.add("coins");

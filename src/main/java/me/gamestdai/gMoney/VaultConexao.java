@@ -4,7 +4,7 @@ import java.util.List;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
-public class VaultConexão
+public class VaultConexao
         implements Economy {
 
     public boolean isEnabled() {
