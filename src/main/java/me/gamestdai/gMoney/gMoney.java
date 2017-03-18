@@ -81,11 +81,6 @@ public class gMoney extends JavaPlugin {
             usingUUID = false;
             System.out.println("using UUID disable because server is version " + getServerVersion());
         }
-        
-        /*if(Bukkit.getPluginManager().getPlugin("Skript") != null) {
-            Skript.registerEffect(EffGiveMoney.class, new String[] {"gmoney give %integer% to %string%"});
-            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "gMoney and Skript Enable!");
-        }*/
 
         if (this.config.getBoolean("MySQL.Enable") == true) {
             try {

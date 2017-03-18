@@ -1,10 +1,5 @@
 package me.gamestdai.gMoney.Comandos.SubComandos;
 
-import com.iCo6.system.Queried;
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.UUID;
 import me.gamestdai.gMoney.Abstratas.SubCommand;
 import me.gamestdai.gMoney.Enums.ConverterType;
 import me.gamestdai.gMoney.Eventos.ConverterFinishEvent;
@@ -16,6 +11,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+
+import java.io.File;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -68,12 +68,13 @@ public class CmdConverter extends SubCommand {
         @Override
         public void run() {
             try {
-                Method accounts = Queried.class.getDeclaredMethod("accountList");
+                Class Queried = Class.forName("com.iCo6.system.Queried");
+                Method accounts = Queried.getDeclaredMethod("accountList");
                 accounts.setAccessible(true);
                 List<String> lista = (List<String>) accounts.invoke(null);
                 for (int i = lista.size() - 1; i >= 0; i--) {
                     String account = lista.get(i);
-                    Method balanceM = Queried.class.getDeclaredMethod("getBalance", String.class);
+                    Method balanceM = Queried.getDeclaredMethod("getBalance", String.class);
                     balanceM.setAccessible(true);
                     Double balance = (Double) balanceM.invoke(null, account);
                     if (gMoney.getInstance().usingUUID == true) {
