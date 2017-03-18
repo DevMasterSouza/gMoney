@@ -1,8 +1,9 @@
 package me.gamestdai.gMoney;
 
-import java.util.List;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+
+import java.util.List;
 
 public class VaultConexao
         implements Economy {
