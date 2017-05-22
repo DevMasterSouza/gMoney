@@ -1,7 +1,7 @@
 package me.gamestdai.gMoney.Eventos;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -11,18 +11,18 @@ import org.bukkit.event.HandlerList;
  */
 public class PlayerSetMoneyEvent extends Event{
     
-    private Player player;
+    private CommandSender sender;
     private OfflinePlayer target;
     private double money;
 
-    public PlayerSetMoneyEvent(Player player, OfflinePlayer target, double money) {
-        this.player = player;
+    public PlayerSetMoneyEvent(CommandSender sender, OfflinePlayer target, double money) {
+        this.sender = sender;
         this.target = target;
         this.money = money;
     }
 
-    public Player getPlayer() {
-        return player;
+    public CommandSender getSender() {
+        return sender;
     }
 
     public OfflinePlayer getTarget() {

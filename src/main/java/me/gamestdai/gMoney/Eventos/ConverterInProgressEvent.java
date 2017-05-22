@@ -1,7 +1,7 @@
 package me.gamestdai.gMoney.Eventos;
 
 import me.gamestdai.gMoney.Enums.ConverterType;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -13,13 +13,13 @@ public class ConverterInProgressEvent extends Event{
     
     private ConverterType type;
     private int time;
-    private Player player;
+    private CommandSender sender;
     private int missingAccounts;
 
-    public ConverterInProgressEvent(ConverterType type, int time, Player player, int missingAccounts) {
+    public ConverterInProgressEvent(ConverterType type, int time, CommandSender sender, int missingAccounts) {
         this.type = type;
         this.time = time;
-        this.player = player;
+        this.sender = sender;
         this.missingAccounts = missingAccounts;
     }
 
@@ -35,10 +35,10 @@ public class ConverterInProgressEvent extends Event{
         return time;
     }
 
-    public Player getPlayer() {
-        return player;
+    public CommandSender getSender() {
+        return sender;
     }
-    
+
     private static final HandlerList handlers = new HandlerList();
 
     @Override

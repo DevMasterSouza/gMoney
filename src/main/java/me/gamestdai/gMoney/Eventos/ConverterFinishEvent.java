@@ -1,7 +1,7 @@
 package me.gamestdai.gMoney.Eventos;
 
 import me.gamestdai.gMoney.Enums.ConverterType;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -11,16 +11,16 @@ import org.bukkit.event.HandlerList;
  */
 public class ConverterFinishEvent extends Event{
     
-    private Player player;
+    private CommandSender sender;
     private ConverterType type;
 
-    public ConverterFinishEvent(ConverterType type, Player player) {
+    public ConverterFinishEvent(ConverterType type, CommandSender sender) {
         this.type = type;
-        this.player = player;
+        this.sender = sender;
     }
 
-    public Player getPlayer() {
-        return player;
+    public CommandSender getSender() {
+        return sender;
     }
 
     public ConverterType getType() {
