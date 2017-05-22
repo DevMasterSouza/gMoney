@@ -1,6 +1,6 @@
 package me.gamestdai.gMoney.Abstratas;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 /**
  *
@@ -20,7 +20,7 @@ public abstract class SubCommand {
         this.permission = permission;
     }
     
-    public abstract boolean onCommand(Player player, String[] args);
+    public abstract boolean onCommand(CommandSender seender, String[] args);
 
     public String getComando() {
         return comando;

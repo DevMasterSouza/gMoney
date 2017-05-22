@@ -1,25 +1,18 @@
 package me.gamestdai.gMoney.Comandos;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 import me.gamestdai.gMoney.Abstratas.SubCommand;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdConverter;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdGive;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdHelp;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdPay;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdPermission;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdReset;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdSet;
-import me.gamestdai.gMoney.Comandos.SubComandos.CmdTop;
+import me.gamestdai.gMoney.Comandos.SubComandos.*;
 import me.gamestdai.gMoney.Interfaces.Economia;
 import me.gamestdai.gMoney.gMoney;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class CmdMoney implements CommandExecutor{
     
@@ -40,10 +33,6 @@ public class CmdMoney implements CommandExecutor{
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-        if(!(cs instanceof Player)) {
-            cs.sendMessage(gMoney.getInstance().Msgs.get("ONLY_PLAYER_USE_COMMANDS"));
-            return true;
-        }
         Player player = (Player) cs;
         Economia eco = gMoney.getInstance().economia;
         if(strings.length == 0) {

@@ -9,6 +9,7 @@ import me.gamestdai.gMoney.UUIDGetter;
 import me.gamestdai.gMoney.gMoney;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -28,23 +29,23 @@ public class CmdConverter extends SubCommand {
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         try {
             if (args.length == 0) {
                 String msg = ChatColor.GOLD + "Converter Plugins:\n" + ChatColor.GOLD + "Iconomy\n" + ChatColor.GOLD + "Essentials";
-                player.sendMessage(msg);
+                sender.sendMessage(msg);
                 return true;
             }
             if (args[0].equalsIgnoreCase("iconomy")) {
-                ThreadIconomy thread = new ThreadIconomy(player);
+                ThreadIconomy thread = new ThreadIconomy(sender);
                 thread.start();
-                Bukkit.getPluginManager().callEvent(new ConverterStartEvent(ConverterType.ICONOMY, player, thread.getTime()));
-                player.sendMessage(ChatColor.GREEN + "Conversion started. DON'T STOP SERVER.");
+                Bukkit.getPluginManager().callEvent(new ConverterStartEvent(ConverterType.ICONOMY, sender, thread.getTime()));
+                sender.sendMessage(ChatColor.GREEN + "Conversion started. DON'T STOP SERVER.");
             }else if(args[0].equalsIgnoreCase("essentials")) {
-                ThreadEssentials thread = new ThreadEssentials(player);
+                ThreadEssentials thread = new ThreadEssentials(sender);
                 thread.start();
-                Bukkit.getPluginManager().callEvent(new ConverterStartEvent(ConverterType.ESSENTIALS, player, thread.getTime()));
-                player.sendMessage(ChatColor.GREEN + "Conversion started. DON'T STOP SERVER.");
+                Bukkit.getPluginManager().callEvent(new ConverterStartEvent(ConverterType.ESSENTIALS, sender, thread.getTime()));
+                sender.sendMessage(ChatColor.GREEN + "Conversion started. DON'T STOP SERVER.");
             }
             return true;
         } catch (Exception e) {
@@ -54,11 +55,11 @@ public class CmdConverter extends SubCommand {
 
     public class ThreadIconomy extends Thread implements Runnable {
         
-        private Player player;
+        private CommandSender sender;
         private int time;
         
-        public ThreadIconomy(Player player) {
-            this.player = player;
+        public ThreadIconomy(CommandSender sender) {
+            this.sender = sender;
         }
 
         public int getTime() {
@@ -85,15 +86,15 @@ public class CmdConverter extends SubCommand {
                     }
                     time = (i / 5);
                     Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "gMoney - Converting Iconomy - Player " + account);
-                    Bukkit.getPluginManager().callEvent(new ConverterInProgressEvent(ConverterType.ICONOMY, time, player, i));
+                    Bukkit.getPluginManager().callEvent(new ConverterInProgressEvent(ConverterType.ICONOMY, time, sender, i));
                     if(i % 10 == 0) {
                         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "gMoney - Converting Iconomy - Wait more " + (i / 5) + " " + ((i / 5) > 1 ? "seconds" : "second"));
                     }
                     if(i == 0) {
                         this.interrupt();
-                        Bukkit.getPluginManager().callEvent(new ConverterFinishEvent(ConverterType.ICONOMY, this.player));
-                        if(player.isOnline()) {
-                            player.sendMessage(ChatColor.RED + "Convert is finish :D");
+                        Bukkit.getPluginManager().callEvent(new ConverterFinishEvent(ConverterType.ICONOMY, this.sender));
+                        if(sender instanceof Player && ((Player)sender).isOnline()) {
+                            sender.sendMessage(ChatColor.RED + "Convert is finish :D");
                         }
                         continue;
                     }
@@ -107,11 +108,11 @@ public class CmdConverter extends SubCommand {
     
     public class ThreadEssentials extends Thread implements Runnable {
         
-        private Player player;
+        private CommandSender sender;
         private int time;
         
-        public ThreadEssentials(Player player) {
-            this.player = player;
+        public ThreadEssentials(CommandSender sender) {
+            this.sender = sender;
         }
 
         public int getTime() {
@@ -161,15 +162,15 @@ public class CmdConverter extends SubCommand {
                     }
                     time = (i / 5);
                     Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "gMoney - Converting Essentials - Player " + playernick);
-                    Bukkit.getPluginManager().callEvent(new ConverterInProgressEvent(ConverterType.ESSENTIALS, time, player, i));
+                    Bukkit.getPluginManager().callEvent(new ConverterInProgressEvent(ConverterType.ESSENTIALS, time, sender, i));
                     if(i % 10 == 0) {
                         Bukkit.getConsoleSender().sendMessage(ChatColor.BLUE + "gMoney - Converting Essentials - Wait more " + (i / 5) + " " + ((i / 5) > 1 ? "seconds" : "second"));
                     }
                     if(i == 0) {
                         this.interrupt();
-                        Bukkit.getPluginManager().callEvent(new ConverterFinishEvent(ConverterType.ESSENTIALS, this.player));
-                        if(player.isOnline()) {
-                            player.sendMessage(ChatColor.GOLD + "Convert is finish :D");
+                        Bukkit.getPluginManager().callEvent(new ConverterFinishEvent(ConverterType.ESSENTIALS, this.sender));
+                        if(sender instanceof Player && ((Player)sender).isOnline()) {
+                            sender.sendMessage(ChatColor.GOLD + "Convert is finish :D");
                         }
                         continue;
                     }

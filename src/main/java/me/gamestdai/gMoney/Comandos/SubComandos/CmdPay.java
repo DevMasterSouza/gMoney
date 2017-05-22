@@ -5,6 +5,7 @@ import me.gamestdai.gMoney.Eventos.PlayerPayMoneyEvent;
 import me.gamestdai.gMoney.Interfaces.Economia;
 import me.gamestdai.gMoney.gMoney;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -18,7 +19,12 @@ public class CmdPay extends SubCommand{
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
+        if(!(sender instanceof Player)) {
+            sender.sendMessage(gMoney.getInstance().Msgs.get("ONLY_PLAYER_USE_COMMANDS"));
+            return true;
+        }
+        Player player = (Player)sender;
         try {
             Economia eco = gMoney.getInstance().economia;
             Player target = Bukkit.getPlayer(args[0]);

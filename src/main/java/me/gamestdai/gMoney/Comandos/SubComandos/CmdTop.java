@@ -1,12 +1,12 @@
 package me.gamestdai.gMoney.Comandos.SubComandos;
 
-import java.text.DecimalFormat;
-import java.util.Map;
 import me.gamestdai.gMoney.Abstratas.SubCommand;
 import me.gamestdai.gMoney.Interfaces.Economia;
 import me.gamestdai.gMoney.gMoney;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
+
+import java.util.Map;
 
 /**
  *
@@ -19,7 +19,7 @@ public class CmdTop extends SubCommand{
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         Economia eco = gMoney.getInstance().economia;
         StringBuilder sb = new StringBuilder();
         sb.append(gMoney.getInstance().Msgs.get("Top_5_Rich".toUpperCase())).append("\n");
@@ -30,7 +30,7 @@ public class CmdTop extends SubCommand{
             sb.append(ChatColor.GRAY).append(name).append(" - ").append(ChatColor.GREEN).append(gMoney.getInstance().formatar(map.get(name))).append("\n");
         }
         sb.append(gMoney.getInstance().Msgs.get("Top_5_Rich".toUpperCase()));
-        player.sendMessage(sb.toString());
+        sender.sendMessage(sb.toString());
         return true;
     }
     

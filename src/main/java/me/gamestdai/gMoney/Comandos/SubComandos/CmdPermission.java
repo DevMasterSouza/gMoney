@@ -3,7 +3,7 @@ package me.gamestdai.gMoney.Comandos.SubComandos;
 import me.gamestdai.gMoney.Abstratas.SubCommand;
 import me.gamestdai.gMoney.gMoney;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 /**
  *
@@ -16,14 +16,14 @@ public class CmdPermission extends SubCommand{
     }
 
     @Override
-    public boolean onCommand(Player player, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         StringBuilder sb = new StringBuilder();
         sb.append(ChatColor.GREEN).append("- gMoney Permissions -").append("\n");
         for(SubCommand cmd : gMoney.getInstance().cmdmoney.getCommands()) {
             sb.append(ChatColor.GREEN).append("money ").append(cmd.getComando()).append(" ").append(cmd.getForma_De_Uso()).append(" - gMoney.cmd.").append(cmd.getPermission()).append("\n");
         }
         sb.append(ChatColor.GREEN).append("- gMoney Permissions -").append("\n");
-        player.sendMessage(sb.toString());
+        sender.sendMessage(sb.toString());
         return true;
     }
 }
