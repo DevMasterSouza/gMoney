@@ -2,6 +2,7 @@ package me.gamestdai.gMoney;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.OfflinePlayer;
 
 import java.util.List;
 
@@ -120,5 +121,80 @@ public class VaultConexao
 
     public boolean createPlayerAccount(String string, String string1) {
         return createPlayerAccount(string);
+    }
+
+    @Override
+    public boolean hasAccount(OfflinePlayer offlinePlayer) {
+        return false;
+    }
+
+    @Override
+    public boolean hasAccount(OfflinePlayer offlinePlayer, String s) {
+        return false;
+    }
+
+    @Override
+    public double getBalance(OfflinePlayer offlinePlayer) {
+        return getBalance(offlinePlayer.getName());
+    }
+
+    @Override
+    public double getBalance(OfflinePlayer offlinePlayer, String s) {
+        return getBalance(offlinePlayer.getName());
+    }
+
+    @Override
+    public boolean has(OfflinePlayer offlinePlayer, double v) {
+        return has(offlinePlayer.getName(), v);
+    }
+
+    @Override
+    public boolean has(OfflinePlayer offlinePlayer, String s, double v) {
+        return has(offlinePlayer.getName(), v);
+    }
+
+    @Override
+    public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double v) {
+        return withdrawPlayer(offlinePlayer.getName(), v);
+    }
+
+    @Override
+    public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, String s, double v) {
+        return withdrawPlayer(offlinePlayer.getName(), v);
+    }
+
+    @Override
+    public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double v) {
+        return depositPlayer(offlinePlayer.getName(), v);
+    }
+
+    @Override
+    public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, String s, double v) {
+        return depositPlayer(offlinePlayer.getName(), v);
+    }
+
+    @Override
+    public EconomyResponse createBank(String s, OfflinePlayer offlinePlayer) {
+        return null;
+    }
+
+    @Override
+    public EconomyResponse isBankOwner(String s, OfflinePlayer offlinePlayer) {
+        return null;
+    }
+
+    @Override
+    public EconomyResponse isBankMember(String s, OfflinePlayer offlinePlayer) {
+        return null;
+    }
+
+    @Override
+    public boolean createPlayerAccount(OfflinePlayer offlinePlayer) {
+        return createPlayerAccount(offlinePlayer.getName());
+    }
+
+    @Override
+    public boolean createPlayerAccount(OfflinePlayer offlinePlayer, String s) {
+        return createPlayerAccount(offlinePlayer.getName());
     }
 }
