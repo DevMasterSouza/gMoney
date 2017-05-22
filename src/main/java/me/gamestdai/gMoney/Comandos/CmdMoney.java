@@ -4,6 +4,7 @@ import me.gamestdai.gMoney.Abstratas.SubCommand;
 import me.gamestdai.gMoney.Comandos.SubComandos.*;
 import me.gamestdai.gMoney.Interfaces.Economia;
 import me.gamestdai.gMoney.gMoney;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -32,53 +33,58 @@ public class CmdMoney implements CommandExecutor{
     private HashMap<String, Long> players = new HashMap<>();
 
     @Override
-    public boolean onCommand(CommandSender cs, Command cmnd, String string, String[] strings) {
-        Player player = (Player) cs;
+    public boolean onCommand(CommandSender sender, Command cmnd, String string, String[] strings) {
+        //Player player = (Player) cs;
         Economia eco = gMoney.getInstance().economia;
         if(strings.length == 0) {
-            if (eco.hasAccount(player.getName())) {
-                player.sendMessage(gMoney.getInstance().Msgs.get("PLAYER_MONEY").replaceAll("\\{money\\}", String.valueOf(gMoney.getInstance().formatar(eco.getMoney(player.getName())))));
-            } else {
-                player.sendMessage(gMoney.getInstance().Msgs.get("NO_ACCOUNT"));
-                eco.createAccount(player.getName());
+            if(!(sender instanceof Player)) {
+                sender.sendMessage(ChatColor.RED + "Use: " + string + " [player/subcommand]");
+            }else{
+                Player player = (Player) sender;
+                if (eco.hasAccount(player.getName())) {
+                    player.sendMessage(gMoney.getInstance().Msgs.get("PLAYER_MONEY").replaceAll("\\{money\\}", String.valueOf(gMoney.getInstance().formatar(eco.getMoney(player.getName())))));
+                } else {
+                    player.sendMessage(gMoney.getInstance().Msgs.get("NO_ACCOUNT"));
+                    eco.createAccount(player.getName());
+                }
             }
             return true;
         }
         for(SubCommand cmd : comandos) {
             if(strings[0].equalsIgnoreCase(cmd.getComando())) {
-                if(player.hasPermission("gMoney.cmd." + cmd.getPermission())) {
+                if(sender.hasPermission("gMoney.cmd." + cmd.getPermission())) {
                     if(gMoney.getInstance().commandsWithCooldown) {
-                        if(players.containsKey(player.getName().toLowerCase())) {
-                            Long l = players.get(player.getName().toLowerCase());
+                        if(players.containsKey(sender.getName().toLowerCase())) {
+                            Long l = players.get(sender.getName().toLowerCase());
                             if(((System.currentTimeMillis() - l) /1000) - gMoney.getInstance().cooldownTime >= 0) {
-                                players.put(player.getName().toLowerCase(), System.currentTimeMillis());
+                                players.put(sender.getName().toLowerCase(), System.currentTimeMillis());
                             }else{
                                 int time = Math.abs((int) (((System.currentTimeMillis() - l) /1000) - gMoney.getInstance().cooldownTime));
-                                player.sendMessage(gMoney.getInstance().Msgs.get("WFUTCA").replaceAll("\\{time\\}", time + ""));
+                                sender.sendMessage(gMoney.getInstance().Msgs.get("WFUTCA").replaceAll("\\{time\\}", time + ""));
                                 return true;
                             }
                         }else{
-                            players.put(player.getName().toLowerCase(), System.currentTimeMillis());
+                            players.put(sender.getName().toLowerCase(), System.currentTimeMillis());
                         }
                     }
                     List<String> list = new ArrayList<String>();
                     Collections.addAll(list, strings);
                     list.remove(0);
                     String[] args = list.toArray(new String[list.size()]);
-                    if(!cmd.onCommand(player, args)) {
-                        player.sendMessage(gMoney.getInstance().Msgs.get("COMMAND_CORRECT_FORM").replaceAll("\\{command\\}",cmd.getComando()).replaceAll("\\{useform\\}", cmd.getForma_De_Uso()));
+                    if(!cmd.onCommand(sender, args)) {
+                        sender.sendMessage(gMoney.getInstance().Msgs.get("COMMAND_CORRECT_FORM").replaceAll("\\{command\\}",cmd.getComando()).replaceAll("\\{useform\\}", cmd.getForma_De_Uso()));
                     }
                 }else{
-                    player.sendMessage(gMoney.getInstance().Msgs.get("NO_PERMISSION"));
+                    sender.sendMessage(gMoney.getInstance().Msgs.get("NO_PERMISSION"));
                 }
                 return true;
             }
         }
         String name = strings[0];
         if (eco.hasAccount(name)) {
-            player.sendMessage(gMoney.getInstance().Msgs.get("OTHER_PLAYER_MONEY").replaceAll("\\{player\\}", name).replaceAll("\\{money\\}", gMoney.getInstance().formatar(eco.getMoney(name))));
+            sender.sendMessage(gMoney.getInstance().Msgs.get("OTHER_PLAYER_MONEY").replaceAll("\\{player\\}", name).replaceAll("\\{money\\}", gMoney.getInstance().formatar(eco.getMoney(name))));
         } else {
-            player.sendMessage(gMoney.getInstance().Msgs.get("PLAYER_DONT_HAVA_ACCOUNT"));
+            sender.sendMessage(gMoney.getInstance().Msgs.get("PLAYER_DONT_HAVA_ACCOUNT"));
         }
         return true;
     }
